@@ -2,9 +2,11 @@ import java.util.Random;
  
 public class Producer implements Runnable {
     private Drop drop;
+    private String name;
  
-    public Producer(Drop drop) {
+    public Producer(Drop drop, String name) {
         this.drop = drop;
+        this.name = name;
     }
  
     public void run() {
@@ -19,11 +21,11 @@ public class Producer implements Runnable {
         for (int i = 0;
              i < importantInfo.length;
              i++) {
-            drop.put(importantInfo[i]);
+            drop.put(importantInfo[i], name);
             try {
                 Thread.sleep(random.nextInt(5000));
             } catch (InterruptedException e) {}
         }
-        drop.put("DONE");
+        drop.put("DONE", name);
     }
 }

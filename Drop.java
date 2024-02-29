@@ -2,6 +2,7 @@ public class Drop {
     // Message sent from producer
     // to consumer.
     private String message;
+    public String producerName;
     // True if consumer should wait
     // for producer to send message,
     // false if producer should wait for
@@ -24,7 +25,7 @@ public class Drop {
         return message;
     }
  
-    public synchronized void put(String message) {
+    public synchronized void put(String message, String name) {
         // Wait until message has
         // been retrieved.
         while (!empty) {
@@ -36,6 +37,7 @@ public class Drop {
         empty = false;
         // Store message.
         this.message = message;
+        this.producerName = name;
         // Notify consumer that status
         // has changed.
         notifyAll();
